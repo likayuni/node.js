@@ -8,14 +8,13 @@ const db = mysql.createConnection({
   password: "",
 });
 
-const server = http.createServer((req, res) => {
+appendFile.get("/users", (req, res) => {
   db.query("SELECT * FROM user", (err, results) => {
     if (err) {
-      res.writeHead(500, { "Content-Type": "text/plain" });
-      res.end("Internal Server Eror");
+      res.ststus(500).send("Internal Server Eror");
+      return;
     }
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end(JSON.stringify(results));
+    res.json(results);
   });
 });
 server.listen(3000, () =>
